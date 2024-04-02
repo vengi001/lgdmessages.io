@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>Reply sent to the author :)</p>
+        {% if request.user.is_authenticated %}
+	    <center> Logout the chat Page <a href = "{% url 'logout-user' %}">Logout</a></center>
+	    {% endif %}
+    </body>
+</html>

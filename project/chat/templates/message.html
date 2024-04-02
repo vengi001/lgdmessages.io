@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    
+
+    <style>
+        /* CSS styles for the dialog box */
+        .dialog-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .emoji-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .emoji-options i {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        #emoji-container {
+            font-size: 48px;
+            cursor: pointer;
+        }
+    </style>
+    <body>
+        <p>Your message is here!</p>
+        <h1>{{message}}</h1>
+        <button id="id_message_send_button" class="btn-hover.color-1">Reply</button>
+        
+        <div id="replyDialog" class="dialog-box">
+            
+            <h2>Compose Reply</h2>
+            <textarea id="replyMessage" placeholder="Enter your message..."></textarea>
+            
+            <p id = "emoji-container">
+                <span>&#128512;</span>
+                <span>&#128516;</span>
+                <span>&#128525;</span>
+                <span>&#128151;</span>
+            </p>
+            
+        <div>
+            <form  id="replyForm" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="data" id="replyMessageInput" >
+                <input type="submit" value="Send">
+            </form>
+            <button id="replyCancelButton">Cancel</button>
+            <button id="replyResetButton">Reset</button>
+             
+                
+        </div>
+        </div>
+            <script>
+                document.getElementById("id_message_send_button").addEventListener("click", function() {
+                    document.getElementById("replyDialog").style.display = "block";
+                });
+
+                document.getElementById("replyCancelButton").addEventListener("click", function() {
+                    document.getElementById("replyDialog").style.display = "none";
+                });
+
+                document.addEventListener("DOMContentLoaded", function(){
+                    var resetButton = document.getElementById("replyResetButton");
+                    resetButton.addEventListener("click", function(){
+                        var message = document.getElementById("replyMessage");
+                        message.value ="";
+                    });
+                });
+
+                const emojiContainer = document.getElementById('emoji-container');
+                const replyText = document.getElementById("replyMessage");
+                emojiContainer.addEventListener('click', function(event){
+                    if (event.target.tagName === 'SPAN') {
+                    const clickedEmoji = event.target.textContent;
+
+                    replyText.value +=clickedEmoji;
+                    }
+                });
+
+                const emojiContainerr= document.getElementById('emoji-containerr');
+                const replyTextt = document.getElementById("replyMessage");
+                emojiContainer.addEventListener('click',function(event){
+                    if (event.target.tagName === 'SPAN'){
+                        const clickedEmooji = event.target.textContext;
+                        replyText.value =+clickedEMoji;
+                    }
+                });
+
+                var replyForm = document.getElementById('replyForm');
+                var replyMessage = document.getElementById('replyMessage');
+                var replyMessageInput = document.getElementById('replyMessageInput');
+                
+                replyForm.addEventListener('submit', function(event){
+                    event.preventDefault();
+                    var formData = new FormData();
+                    formData.append('reply_message', replyMessage.value);
+                    formData.append('main_message_id', "{{ id }}");
+                    formData.append('main_message', "{{ message }}");
+
+                    var formDataJSON = {};
+                    formData.forEach(function(value, key){
+                        formDataJSON[key] = value;
+                    });
+
+                    replyMessageInput.value = JSON.stringify(formDataJSON);
+
+                    this.submit();
+                    });
+            </script>
+
+
+
+
+
+
+
