@@ -19,7 +19,7 @@ class ReplyMessage(admin.ModelAdmin):
 
 admin.site.register(MessageTable, Messages)
 admin.site.register(ReplyTable, Replies)
-admin.site.register(MainMessageReply, ReplyMessage)
+# admin.site.register(MainMessageReply, ReplyMessage)
 
 message = models.TextField()
     
