@@ -26,6 +26,6 @@ router.register('todo', views.TodoView, 'Todo')
 urlpatterns = [
     path('admin/venky/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('chat/',include('chat.urls')),
+    path('',include('chat.urls')),
     # path('api/todo/', views.TodoView),
 ]   

@@ -24,10 +24,31 @@ class ReplyTable(models.Model):
     repliedBy = models.CharField(max_length=50)
     repliedDate = models.DateTimeField(auto_now_add=True)
     main_message = models.TextField()
+    message_id = models.IntegerField(blank=True, null=True)
+
 
     class Meta:
         verbose_name_plural = 'replies'
     
     def __str__(self):
         return self.repliedBy
+
+# class MainMessageReply(models.Model):
+#     message = models.TextField()
+#     replyTo = models.ForeignKey(ReplyTable, on_delete=models.CASCADE)
+#     repliedBy = models.CharField(max_length=50)
+#     repliedDate = models.DateTimeField(auto_now_add=True)
+#     main_message = models.TextField()
+#     reply_id = models.IntegerField(blank=True, null=True)
+
+#     class Meta:
+#         verbose_name_plural = 'authorReplies'
+
+# class HistoryTable(models.Model):
+#     main_message = models.TextField()
+#     main_message_id = models.IntegerField()
+#     Replies = models.JSONField(default=False, null=True)
+
+
+
 

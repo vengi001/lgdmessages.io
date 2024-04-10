@@ -1,9 +1,77 @@
 <!DOCTYPE html>
+<body oncontextmenu="return false">
+    <script>
+    document.onkeydown = (e) => {
+        if (e.key == 123) {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.key == 'U') {
+            e.preventDefault();
+        }
+    };
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    }); 
+    </script>
+    <style>
+        @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.logout-container {
+    animation: slideInFromLeft 1s ease-in-out;
+    text-align: center;
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.catchy-font {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #08cdf0; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+    </style>
 <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
     <body>
-        <p>Reply sent to the author :)</p>
+        <h3 class="fade-in catchy-font">Reply sent to the author :)</h3>
         {% if request.user.is_authenticated %}
-	    <center> Logout the chat Page <a href = "{% url 'logout-user' %}">Logout</a></center>
-	    {% endif %}
+            <div class="logout-container">
+                <h4 h1class="fade-in">Logout the chat Page <a href="{% url 'logout-user' %}" class="fade-in">Logout</a></h4>
+            </div>
+        {% endif %}
     </body>
 </html>

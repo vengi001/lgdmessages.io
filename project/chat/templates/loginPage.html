@@ -1,16 +1,101 @@
 <!DOCTYPE html>
+<body oncontextmenu="return false">
+    <script>
+    document.onkeydown = (e) => {
+        if (e.key == 123) {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.key == 'U') {
+            e.preventDefault();
+        }
+    };
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    }); 
+    </script>
+    <style>
+    .login-form {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border:3px solid rgb(52, 189, 177);
+        border-radius: 5px;
+        background-color:aquamarine;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-control {
+        width: 91%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid deeppink ;
+        border-radius: 5px;
+        
+    }
+    
+    .btn-primary {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color:deeppink;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 80vh;
+    }
+
+    .centered {
+        max-width: 300px;
+        width: 100%;
+        text-align: center;
+    }
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color:whitesmoke; 
+} 
+</style>
 <html>
     <body>
-        <form method="post">
+        <div class="container">
+            <div class="centered">
+        <form method="post" class="login-form">
             {% csrf_token %}
-            <!-- {{form.as_p}} -->
-            <input type="input" class="form-control" name="username" id="inputEmail" placeholder="Username" required >
-            
-            <input type="password" class="form-control" name="password" id="inputPass" placeholder="Password" required>
-            <button type="submit" style="opacity: 1 !important;">Login</button>
-            <!-- <a href="/password_reset">Reset Password</a> -->
-            </form>
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" id="inputEmail" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" id="inputPass" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
+    </div>
+    </div>
     </body>
 </html>
 

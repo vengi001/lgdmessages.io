@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view
-from chat.models import MessageTable, ReplyTable
+from chat.models import *
 import sqlite3
 from django.db import connection
 from random import randint
@@ -15,13 +15,18 @@ def quotes(request):
         if request.method == 'POST':
             data = json.loads(request.data['data'])
             html_page = 'replyPage.html'
+
+            main_message_id = get_object_or_404(MessageTable, id=data['main_message_id'])
+
             RelySave = ReplyTable(
             message = data['reply_message'],
-            replyTo = get_object_or_404(MessageTable, id=data['main_message_id']),
+            replyTo = main_message_id,
             main_message = data['main_message'],
-            repliedBy = request.user
+            repliedBy = request.user,
+            message_id = main_message_id.id
             )
             RelySave.save()
+
             context = {'message': 'Reply sent successfully'}
         elif request.method == 'GET':
             today_date = date.today()
@@ -55,5 +60,39 @@ def quotes(request):
         return render(request, html_page, context=context)
     else:
         return redirect("login-user")
-# YQ3mmIN8gqSfJZdypn8mWskNJkQyFPga1are1BnrhuYLer4oen4m1FyatnLiPWB3
-# Uk2DHNmbzU9BP7P0uFPfoajFEurQmKKAFkhSrfx9bWc4jfZ2qbwYJTJ2yVpbp8L   
+
+# @api_view(['GET','POST'])
+# def history(request):
+#     if request.user.is_authenticated():
+#         if request.method == 'GET':
+
+# @api_view(['GET','POST'])
+# def authorScreen(request):
+#     if request.user.is_authenticated and request.user.username == 'vengi':
+#         if request.method == 'POST':
+#             data = json.loads(request.data['data'])
+#             userreplymessage = get_object_or_404(ReplyTable, id = data['reply_message'])
+
+#             AuthorReply = MainMessageReply(
+#                 message = data['message'],
+#                 replyTo = userreplymessage,
+#                 repliedBy = request.user,
+#                 main_message = userreplymessage.main_message,
+#                 reply_id = userreplymessage.id
+#             )
+
+#             AuthorReply.save()
+#             return render(request, "authorReplyPage.html",context={'data':AuthorReply})
+#         else:
+            
+#             data={'MessageData': MessageTable.objects.all().values(),
+#                     'ReplyData':ReplyTable.objects.all().values(),
+#                     'AuthorReply': MainMessageReply.objects.all().values(),
+#                     'HistoryTable': HistoryTable.objects.all().values()}
+
+#             return render(request, "authorReplyPage.html", context={'data':data})
+
+#     else:
+#         return redirect("login-user")
+
+# # def adminget(request):

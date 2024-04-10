@@ -159,3 +159,4 @@ LOGOUT_REDIRECT_URL = 'login-user'
 
 CSRF_COOKIE_DOMAIN = "domain"
 
+CSRF_TRUSTED_ORIGINS = ['https://*.vengi.pythonanywhere.com','https://*.127.0.0.1']

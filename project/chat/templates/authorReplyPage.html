@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <style>
+            .dialog-box {
+                display: none;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                max-width: 600px; /* Adjust as needed */
+                margin: 20px auto;
+                overflow-x: auto;
+            }
+            .dialog-box span {
+                display: block;
+                margin-bottom: 10px;
+                padding: 5px;
+                background-color: #f0f0f0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+            .dialog-box table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 2px solid #ddd;
+            }
+            .dialog-box th, .dialog-box td {
+                padding: 8px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            .dialog-box td:first-child{
+                border-left: 2px  solid #ddd;
+            }
+            .dialog-box td:last-child{
+                border-right: 2px solid #ddd;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+        
+        <button id="Message_table_data" type="button">Messages</button>
+            <div id="replyDialog" class="dialog-box" style="display: none;">
+                <table colspan="5">
+                <thead><tr>
+                    <th>Message </th>
+                    <th>SeenDate </th>
+                    <th>Readed </th>
+                    <th>ReadedBy </th>
+                    <th>ReceivedDate </th>
+                </tr></thead>
+                
+                <tbody>
+                    {% for dta in data.MessageData %}
+                    <tr>
+                        <td>{{dta.message}}</td>
+                        <td>{{dta.seenDate}}</td>
+                        <td>{{dta.readed}}</td>
+                        <td>{{dta.readBy}}</td>
+                        <td>{{dta.receivedDate}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        <button id="Reply_table_data" type="button">Replies</button>
+        <div id="replyDialog1" class="dialog-box" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>ReplyTo</th>
+                        <th>RepliedDate</th>
+                        <th>MainMessage</th>
+                        <th>ReceivedBy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dta in data.ReplyData %}
+                    <tr>
+                        <td>{{dta.message}}</td>
+                        <td>{{dta.replyTo}}</td>
+                        <td>{{dta.repliedDate}}</td>
+                        <td>{{dta.main_message}}</td>
+                        <td>{{dta.repliedBy}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <script>
+            document.getElementById('Message_table_data').addEventListener('click', function(){
+                document.getElementById('replyDialog').style.display="block";
+            });
+            document.getElementById('Reply_table_data').addEventListener('click', function(){
+                document.getElementById('replyDialog1').style.display="block";
+                });
+        </script>
+    </body>
+</html> 
+

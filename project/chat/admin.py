@@ -12,6 +12,14 @@ class Replies(admin.ModelAdmin):
     filter_by = ('replyTo', 'repliedBy', 'repliedDate')
     ordering = ('repliedDate',)
 
+class ReplyMessage(admin.ModelAdmin):
+    list_display = ('replyTo','repliedBy','repliedDate','main_message')
+    filter_by = ('replyTo','repliedBy','repliedDate','main_message')
+    ordering = ('repliedDate',)
 
 admin.site.register(MessageTable, Messages)
 admin.site.register(ReplyTable, Replies)
+admin.site.register(MainMessageReply, ReplyMessage)
+
+message = models.TextField()
+    
